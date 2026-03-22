@@ -1,1 +1,275 @@
-# Feliz-Cumplea-os
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Nicol ❤️</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fce4ec; /* Rosa claro de fondo */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+       /* --- Chat de WhatsApp --- */
+        #whatsapp-chat {
+            width: 90%;
+            max-width: 400px;
+            background-color: #e5ddd5;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #whatsapp-chat::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f48fb1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: 50px;
+            opacity: 0.2;
+            animation: moveHearts 20s linear infinite;
+        }
+
+        @keyframes moveHearts {
+            from { background-position: 0 0; }
+            to { background-position: 100% 100%; }
+        }
+
+        .chat-header {
+            background-color: #075e54;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-header img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #eee;
+        }
+
+        .chat-body {
+            padding: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .message {
+            background-color: white;
+            border-radius: 7px;
+            padding: 10px;
+            float: right;
+            max-width: 85%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .message::after {
+            content: '';
+            position: absolute;
+            right: -10px; top: 0;
+            border: 10px solid transparent;
+            border-left-color: white;
+            border-top-width: 0;
+        }
+
+        .file-icon {
+            width: 40px; height: 40px;
+            background-color: #f06292;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .file-name { font-weight: bold; color: #333; font-size: 0.9em; }
+        .file-size { font-size: 0.8em; color: #777; }
+        .download-icon { width: 22px; color: #075e54; margin-left: 10px; }
+
+        /* --- Tarjeta Interactiva --- */
+        #love-card {
+            width: 90%;
+            max-width: 550px; /* Un poco más ancha para el texto largo */
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #love-card.show { transform: translate(-50%, -50%) scale(1); }
+
+        h2 { color: #d81b60; text-align: center; margin-top: 0; }
+
+        #letter-text {
+            color: #444;
+            font-size: 1.05em;
+            line-height: 1.5;
+            min-height: 250px;
+            position: relative;
+            z-index: 3;
+            white-space: pre-wrap; /* Mantiene los saltos de línea */
+        }
+
+        #hearts-container {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 15px; height: 15px;
+            transform: rotate(-45deg);
+            opacity: 0;
+            animation: floatHeart 3s forwards;
+        }
+
+        .heart::before, .heart::after {
+            content: ''; position: absolute;
+            width: 15px; height: 15px;
+            background-color: inherit; border-radius: 50%;
+        }
+        .heart::before { top: -7.5px; left: 0; }
+        .heart::after { left: 7.5px; top: 0; }
+
+        @keyframes floatHeart {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; bottom: 0; left: var(--left-start); }
+            10% { opacity: 1; transform: scale(1) rotate(-45deg); }
+            100% { transform: scale(1) rotate(-45deg); opacity: 0; bottom: 400px; left: var(--left-end); }
+        }
+
+        #close-btn {
+            background-color: #d81b60;
+            color: white; border: none;
+            padding: 12px 25px; border-radius: 8px;
+            cursor: pointer; align-self: center;
+            margin-top: 20px; position: relative; z-index: 3;
+        }
+
+        .typed-cursor { opacity: 1; animation: blink 0.7s infinite; color: #d81b60; font-weight: bold; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 5; display: none;
+        }
+        #overlay.show { display: block; }
+    </style>
+</head>
+<body>
+
+    <div id="whatsapp-chat">
+        <div class="chat-header">
+            <img src="https://ui-avatars.com/api/?name=Nicol&background=d81b60&color=fff" alt="Nicol">
+            Nicol
+        </div>
+        <div class="chat-body">
+            <div class="message" id="file-message">
+                <div class="file-icon">HTML</div>
+                <div class="file-info">
+                    <div class="file-name">Feliz Cumpleaños Nicol.html</div>
+                    <div class="file-size">Especial • 2 KB</div>
+                </div>
+                <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+    <div id="love-card">
+        <div id="hearts-container"></div>
+        <h2>¡Feliz Cumpleaños, Nicol! 🎉</h2>
+        <div id="letter-text"></div>
+        <button id="close-btn">Cerrar</button>
+    </div>
+
+    <script>
+        const fileMessage = document.getElementById('file-message');
+        const loveCard = document.getElementById('love-card');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('close-btn');
+        const letterText = document.getElementById('letter-text');
+        const heartsContainer = document.getElementById('hearts-container');
+
+        const message = `Hoy es un día especial y, aunque nuestros caminos tomaron rumbos distintos, no quería dejar pasar la oportunidad de desearte un feliz cumpleaños.
+
+A pesar de la distancia y de que las circunstancias no nos permitieron ser todo lo que pudimos, quiero que sepas que guardo los mejores recuerdos de ti. Me quedo con tu carisma, con esa personalidad que me cautivó y con la mujer maravillosa que conocí en cada conversación nocturna.
+
+Deseo de todo corazón que la vida te regale momentos llenos de luz y que siempre encuentres motivos para sonreír con esa esencia única que tienes. Te mereces que te quieran con intensidad y que, sobre todo, encuentres a alguien que pueda estar presente en cada paso que des.
+
+Disfruta mucho tu día. Que este nuevo año de vida te traiga toda la felicidad que buscas y que sigas siendo esa mujer increíble que no necesita cambiar por nada ni por nadie.
+
+Feliz cumpleaños.`;
+
+        function typeWriter(text, i, fnCallback) {
+            if (i < text.length) {
+                letterText.innerHTML = text.substring(0, i + 1).replace(/\n/g, '<br>') + '<span class="typed-cursor">|</span>';
+                setTimeout(() => typeWriter(text, i + 1, fnCallback), 45);
+            } else if (typeof fnCallback == 'function') {
+                setTimeout(fnCallback, 500);
+            }
+        }
+
+        function createHearts() {
+            const colors = ['#f48fb1', '#f06292', '#e91e63', '#d81b60', '#ff8a80'];
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    const startX = Math.random() * 100;
+                    heart.style.setProperty('--left-start', startX + '%');
+                    heart.style.setProperty('--left-end', (startX + (Math.random() * 40 - 20)) + '%');
+                    heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    heartsContainer.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 150);
+            }
+        }
+
+        fileMessage.addEventListener('click', () => {
+            loveCard.classList.add('show');
+            overlay.classList.add('show');
+            letterText.innerHTML = '';
+            typeWriter(message, 0, createHearts);
+        });
+
+        closeBtn.addEventListener('click', () => {
+            loveCard.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
